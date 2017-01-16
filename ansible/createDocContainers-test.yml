@@ -1,0 +1,18 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+## Create Docker Containers 
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: start-container, host_name: web5, image_name: tomcatimage, container_name: web5, dockerfile: tomcat/Dockerfile }
+
+
+
+- hosts: web5
+  connection: docker
+  roles:
+    - web
+
+
+

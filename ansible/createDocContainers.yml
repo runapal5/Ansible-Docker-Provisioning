@@ -1,0 +1,18 @@
+---
+## This playbook deploys the whole application stack in this site.  
+
+## Create Docker Containers 
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: start-container, host_name: db1, image_name: baseimage1, container_name: db1, dockerfile: Dockerfile }
+    - { role: start-container, host_name: web1, image_name: baseimage1, container_name: web1, dockerfile: Dockerfile }
+    - { role: start-container, host_name: web2, image_name: baseimage1, container_name: web2, dockerfile: Dockerfile }
+    - { role: start-container, host_name: lb1, image_name: baseimage1, container_name: lb1, dockerfile: Dockerfile }
+    - { role: start-container, host_name: nagios, image_name: baseimage1, container_name: nagios, dockerfile: Dockerfile }
+
+# Apply common configuration to all hosts
+- hosts: db1
+  connection: docker
+  roles:
+  - common
